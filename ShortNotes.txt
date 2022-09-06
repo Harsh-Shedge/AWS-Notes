@@ -1,0 +1,1826 @@
+---------------------------------------------------------------------------------
+
+SECTION 2 WHAT IS CLOUD COMPUTING
+
+(A) Five Characteristics of Cloud Computing
+
+(1) On demand self service
+
+(2) Broad Network access 
+
+(3) Multi tenancy and resource pooling
+
+(4) Rapid elasticity and scalability
+
+(5) Measured service 
+
+
+
+(B) SIX ADVANTAGES OF CLOUD COMPUTING
+
+(1) Exchange Capital for operational performance
+
+(2) Benifit from massive economies of scale
+Prices are reduced as AWS is more efficient due to large scale
+
+(3) Scale based on actual measured usage
+
+(4) Increase speed and agility
+
+(5) Stop spending money running and maintaining data centers
+
+(6) Go global in minutes leverage AWS global infrastructure
+
+
+
+(C) Types of Cloud Computing
+
+(1) Infrastructure as a Service (IaaS) manages Servers,Storage and Networking
+
+(2) Platform as a Service manages (PaaS) manages Servers,Storage, Networking, Runtime, Middleware, O/S and Virtualization
+
+(3) In Software as a Service, AWS takes care of everything
+
+
+
+(D) AWS GLOBAL INFRASTRUCTURE INCLUDES
+
+--> AWS Regions
+--> AWS Availability Zones
+--> AWS Data Centers
+--> AWS Edge Locations/ Points of Presence
+
+
+(E) How to choose AWS Region
+
+We Look at
+
+--> Compliance with government regarding sending data outside the country
+
+--> Proximity of the region with the customer
+
+--> Availability services within region
+
+--> Pricing
+
+
+(F) Tour of the AWS Console
+
+AWS has Global Services
+--> Identity and Access Management (IAM)
+--> Route 53 (DNS service)
+--> CloudFront (Content Delivery Network)
+--> Web application Firewall (WAF)
+
+Most AWS services are Region Scoped
+--> Amazon EC2 (Infrastructure as Service)
+--> Elastic Beanstalk (Platform as a Service)
+--> Lambda (Function as a Service)
+--> Rekognition (Software as a Service)
+
+
+--> AWS is responsible for security of the AWS Cloud as well as capacity planning and maintenance of the AWS infrastructure. 
+
+--> This includes physical infrastructure such as data centers, servers, storage systems, and networking equipment.
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+SECTION 4 IDENTITY AND ACCESS MANAGEMENT (IAM)
+
+--> You cannot use IAM to create local user accounts on any system. You are also not charged for what you use, IAM is free to use
+
+
+(1) IAM ROLES FOR AWS SERVICES
+
+--> We assign permissions to AWS Services with IAM Roles
+
+--> IAM Permissions are included in a permission policy, which is then assigned to an IAM Role
+
+--> Extra steps needed to configure IAM Roles
+
+Common Roles are
+---> EC2 Instance Roles
+---> Lamda Function Roles
+---> Roles for CloudFormation 
+
+
+--> Groups only has users and not other groups
+
+
+--> Access keys used to access AWS CLI/API
+
+--> You cannot apply roles to groups, you apply policies to groups.
+
+--> An IAM user name and password can be used for console access but cannot be used with the CLI or API
+
+--> SSH public keys used for connections using the SSH protocol.
+
+
+(2) IAM SECURITY TOOLS
+
+IAM Credentials Report (account-level)
+--> A report that lists all your accounts users and the status of their various credentials
+
+IAM Access Advisor (user-level)
+--> Shows service permission granted to a user and when a service was last accessed
+
+
+(3) IAM BEST PRACTISES
+
+---> Use Access keys for programmatic Access (cli/sdk)
+
+--> IAM best practise is to not use the root user account
+
+--> Another best practice is to grant least privilege access when configuring users and password policies.
+
+
+--> An access key ID and secret access key are associated with an IAM user.
+
+--> You cannot associate an access key ID and secret access key with an IAM Group, Role or Policy.
+
+
+
+--> Customers are responsible for configuring their own IAM password policies and installing operating system patches on Amazon EC2 instances
+
+--> AWS are responsible for installing patches on physical hardware devices, data center access controls and secure disposal of disk drives
+
+
+--> You can manage AWS Identity and Access Management identities through the AWS Management Console, AWS Command Line Tools, AWS SDKs, and IAM HTTPS API.
+
+------------------------------------------------------------------------------------------------------------------------
+
+SECTION 5 EC2 ELASTIC COMPUTE CLOUD
+
+
+(A) Basic Elastic Instance Types
+
+(1) General Purpose : Balance between Compute, Memory, Networking
+
+(2) Compute Optimized type :Great for compute intensive tasks that require high performance processors
+
+(3) Memory Optimized Type : Fast Performance for workloads that process large data sets in Memory
+
+(4) Storage Optimized Type :Great for storage intensive tasks
+
+
+
+(B) EC2 INSTANCE Purchasing Options
+
+
+(1) EC2 On Demand :Pay for what to use
+
+
+(2) EC2 Reserved Instance: 
+
+--> You reserve a specific instance attributes (Instance Type,Region,Tenancy,OS)
+
+--> This deployment option does not provide a specific physical server.
+
+
+
+(3) EC2 SAVINGS Plans: Commit to a certain type of usage
+
+
+(4) EC2 Spot Instances : Instances that you can "lose" at any point of time if your max
+price is less than current spot price (Most cheapest)
+
+--> Used for workloads resilient to failure
+
+--> Applications that are only feasible at very low compute prices, or Users with urgent computing needs for large amounts of additional capacity.
+
+
+(5) EC2 Dedicated Hosts :A physical server with EC2 instance dedicated to your use
+(Most expensive option)
+
+--> Amazon EC2 Dedicated Hosts allow you to use your eligible software licenses from vendors such as Microsoft and Oracle on Amazon EC2, 
+so that you get the flexibility and cost effectiveness of using your own licenses, but with the resiliency, simplicity and elasticity of AWS
+
+
+(6) Dedicated Instances: 
+
+--> YOU HAVE YOUR OWN INSTANCE ON YOUR OWN HARDWARE
+
+--> With dedicated instances you are not given a specific physical server to run your instances on.
+
+
+(7) EC2 Capacity Reservations:
+
+--> Reserve On demand instances capacity in a specific AZ for any duration
+
+--> YOU CAN RESERVE EC2 INSTANCE FOR EITHER 1 YEAR OR 3 YEARS
+
+
+
+(C) Convertible Reserved Instance
+
+--> A convertible reserved instance enables you to exchange one or more Convertible Reserved Instances for another 
+Convertible Reserved Instance with a different configuration, including instance family, operating system, and tenancy.
+
+---------------------------------------------------------------------------------------
+
+SECTION 6 EC2 INSTANCE STORAGE
+
+(A) WHATS AN EBS (Elastic Block Store) VOLUME ? 
+
+--> ELASTIC BLOCK STORE (Volume) is a network drive you can attach to your instances while they run
+
+--> It allows your data to persist even after termination
+
+--> They can only be mounted to one instance at a time and are bound to a specific availability zone
+
+
+(B) EBS Snapshots 
+
+--> Make a backup(snapshot) of your EBS volume at a point in time
+
+--> Can copy snapshots across AZ or Regions
+
+--> EBS Snapshot Archive
+    --> Move Snapshot to an "archieve tier" that is 75% cheaper
+
+--> EBS Snapshots stored in S3
+
+
+(C) AMI OVERVIEW
+
+--> AMI= AMAZON MACHINE IMAGE
+
+--> AMI are customization of an EC2 instance
+
+
+(D) EC2 IMAGE BUILDER 
+
+--> USED TO AUTOMATE CREATION OF VIRTUAL MACHNES OR CONTAINER IMAGE
+
+
+(E) ELASTIC FILE SYSTEM (EFS)
+
+--> Manages NFS (Network File System) THAT can be mounted on 100s of EC2
+
+--> It is built to scale on-demand to petabytes without disrupting applications, growing and shrinking automatically as you add and remove files, 
+eliminating the need to provision and manage capacity to accommodate growth.
+
+--> Used for storing data and is mounted by EC2 instances.
+
+
+(F) EC2 INSTANCE STORE
+
+--> For long term storage EBS IS GOOD
+
+--> If you need high performance hardware disk, use EC2 Instance Store
+
+--> In exam if you see a high performance hardware attached volume for your EC2 Instances
+think of EC2 Instance Store
+
+
+(G) AMAZON FSX OVERVIEW
+
+--> Launch 3rd party high performance file systems on AWS
+
+
+--> IP addresses are added to an instance as you create it
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+SECTION 7 ELB & ASG -ELASTIC LOAD BALANCE AND AUTO SCALING GROUPS
+
+
+(1) HIGH AVAILABILITY
+
+--> High availability means running your application in at least 2 
+Availability Zones
+
+
+(2) ELASTIC LOAD BALANCING OVERVIEW (ELB)
+
+--> Distributes connections to EC2 instances
+
+Load balancers are servers that forward internet traffic to multiple 
+servers downstreams
+
+You can use Load Balancer to do regular health checks to your instances
+
+WHY USE A LOAD BALANCER?
+--> Spread load across multiple downstream instances
+--> Expose a single point of access to your application
+--> Seamlessly handle failures of downstream instances
+
+
+(3) Four Types of Elastic Load Balancers are 
+
+(A) Application Load Balancer
+
+--> For web applications with HTTP and HTTPS traffic
+
+-->  It distributes traffic, does not scale resources.
+
+--> Operates at request level
+
+(B) Network Load Balancer
+
+--> Provide ultra high performance
+
+--> It distributes traffic, does not scale resources.
+
+--> Operates at connection level
+
+(C) Gateway Load Balancer
+
+(D) Classic Load Balancer
+
+
+(4) WHATS AN AUTO SCALING GROUP ?
+
+--> An Auto Scaling group contains a collection of Amazon EC2 instances 
+
+--> AWS Auto Scaling can help you optimize your utilization and cost efficiencies when consuming AWS services so you only pay for the resources you need.
+
+
+(5) AUTO SCALING GROUPS (ASG) STRATERGIES
+
+--> Manual Scaling : Update size of ASG manually
+
+--> Dynamic Scaling Respond changing demand
+
+DYNAMIC SCALING TYPES
+
+(A) Simple\Step Scaling
+When CloudWatch alarm is triggered (CPU > 70%) add 2 units
+When CloudWatch alarm is triggered (CPU < 30%) remove 1 units
+
+(B) Target Tracking Scaling 
+Example : I want average ASG CPU to stay at around 40%
+
+(C) Scheduled Scaling
+Anticipate scaling based on known usage patterns
+Example : increase the minimum capacity to 10 at 5pm on friday
+
+(D) Predictive Scaling
+Uses machine learning to predict future traffic ahead of time
+
+
+---------------------------------------------------------------------------------------
+
+SECTION 8 S3 
+
+--> It's advertised as "infinitely scaling" storage
+
+--> You cannot Reserve S3 you pay for what to use.
+
+S3 USE Cases
+--> Backup and storage
+--> Disaster Recovery
+--> Archieve
+--> Hybrid Cloud storage
+
+
+(1) S3 Overview - BUCKETS
+
+--> Amazon S3 allows people to store objects (files) in "buckets"
+
+--> S3 looks like a global service but buckets are created in a region
+
+
+(2) OBJECTS
+
+--> Object values are content of body, Max size is 5TB
+
+
+(3) S3 SECURITY BUCKET POLICY
+
+(A) User based
+--> IAM policies- which API calls should be allowed for specific user from IAM
+console
+
+(B) Resource Based
+--> Bucket Policies bucket wide rules from S3 console allows cross account
+
+*Note: an IAM principal can access an S3 object if
+--> The user IAM permissions allow it OR the resource policy ALLOWS it
+AND there is no explicit DENY
+
+(C) ENCRYPTION
+
+--> Encrypt objects in Amazon S3 using encryption keys
+
+
+(4) S3 STORAGE CLASSES 
+
+(A) S3 Standard - General Purpose
+
+--> Used for frequently accessed data
+
+--> Used Cases: mobile gaming applications
+
+--> S3 standard not available 53 minutes a year
+
+
+(B) S3 Storage Classes - Infrequent Access
+
+--> For data that is less frequently accessed but requires rapid access when needed
+--> Lower cost than S3 Standard
+
+(B1) Amazon S3 Standard - Infrequent Access (S3 Standard-IA)
+--> Use cases: Disaster Recovery, backups
+
+(B2) Amazon S3 One Zone Infrequent Access (S3 One Zone-IA)
+--> High durability in a single AZ; data lost when AZ is destroyed
+
+
+(5) S3 INTELLIGENT TIERING
+
+--> Small monthly monitoring and auto tiering fee
+--> Moves objects automatically between Access Tiers based on usage
+
+
+(6) AWS STORAGE GATEWAY
+
+--> Hybrid storage service to allow on-premises to seamlessly use AWS Cloud ( virtually unlimited cloud storage) 
+
+
+(7) AWS OpsHub
+--> You download it on computer, it gives you graphical interface to 
+connect to your Snow devices and configure them
+
+
+-----------------------------------------------------------------------
+
+SECTION 9 DATABASES INTRODUCTION
+
+--> Storing data on disk (EFS,EBS,EC2 Instance Store,S3) can have its limits
+
+
+(1) RDS 
+
+--> RDS stands for Relational Database Service
+
+--> Its managed Database (DB) service for DB use SQL as a query language
+
+--> The service is managed so this reduces the database administration tasks an administrator would normally undertake
+
+--> You don’t manage the underlying operating system but still need to manage your own tables and data within the DB
+
+--> RDS requires a well-defined schema.
+
+--> Two of the benefits of using a managed Amazon RDS service are that you get automated backups and automatic software patching.
+
+--> With RDS you cannot access the operating system so the requirement for running scripts on the OS rules RDS out. 
+
+--> Therefore, the next best solution is to deploy on an Amazon EC2 instances 
+
+--> Not auto scaling
+
+
+Advantage over using RDS versus deploying Database on EC2
+
+--> Scaling capacity (vertical and horizontal)
+--> Monitoring dashboards
+--> Multi Availability Zones for DR (Disaster Recovery)
+
+
+(2) AMAZON AURORA
+
+--> It works same way as RDS we have EC2 instance connecting directly into Amazon Aurora
+
+--> Supports PostGreSQL and MySql 
+
+--> Aurora is "AWS cloud optimized" and claims 5x performance improvement
+over MySql on RDS, over 3x the performance of Postgres on RDS
+
+--> Aurora requires a well-defined schema
+
+
+(3) RDS Deployments: Read Replicas, Multi AZ (Availbility Zones)
+
+(A) Read Replicas
+
+--> Can create upto 5 Read Replicas
+--> Data is only written to the main DB
+
+
+(B) Multi Availability Zone (AZ)
+
+--> Failover in case of AZ outage (high availability)
+
+--> Can only have 1 AZ as failover
+
+
+(C) Multi Region
+
+--> MULTI REGION (READ REPLICAS)
+--> Disaster recovery in case of region issues
+
+
+(4) DynamoDB 
+
+--> Amazon DynamoDB is a fully managed, serverless, NoSQL database designed to run 
+high-performance applications at any scale.
+
+--> DynamoDB is schemaless
+
+--> Point-in-time recovery (PITR) provides continuous backups of your DynamoDB table data. 
+
+--> It is a customer responsibility to enable PITR on and AWS is responsible for actually performing the backups.
+
+
+(4.1) DynamoDB with Global Tables
+
+--> DynamoDB global tables replicate data automatically across your choice of AWS Regions and automatically scale capacity to accommodate your workloads.
+
+
+(5) DynamoDB Accelerator - DAX
+
+--> DynamoDB Accelerator (DAX) is an in-memory cache that delivers fast read performance for your 
+tables
+
+--> Using DAX, you can improve the read performance of your DynamoDB tables by up to 10 times
+
+
+(6) REDSHIFT OVERVIEW
+
+--> Redshift is data warehouse
+
+--> REDSHIFT is not used for Onilne Transaction Processing (OLTP)
+
+--> Its OLAP - online analyticl processing (anlytics and data warehousing)
+
+--> Amazon Redshift requires a well-defined schema.
+
+--> Better suited to use cases where analytics of data is required.
+
+
+(7) EMR OVERVIEW
+
+--> EMR is Elastic MapReduce, not really a database
+
+--> EMR helps creating Hadoop clusters (Big Data) to analyse and process
+large amount of data
+
+
+(8) ATHENA OVERVIEW
+
+--> Serverless query service to perform analytics against S3 objects
+
+--> Uses standard SQL language to query the files
+
+--> Use compressed data for cost-savings
+
+
+(9) DMS Overview
+
+Database Migration Service (DMS)
+
+--> Supports Homogeneous migrataions eg: Oracle to Oracle
+
+--> Supports heterogenous migrations : ex Microsoft SQL Server to Aurora
+
+
+(10) Glue overview
+
+We use Glue to extract data from S3 bucket and Amazon RDS and once Data
+is extracted it is in a glue service and we write a script to do a transform
+part and once data is transformed we load that data into for Example
+Redshift database
+
+Basically Glue performs extraction and transformation of data
+
+
+(11) Neptune Overview
+
+--> Fully managed graph database
+
+--> A popular graph dataset would be a social network
+(1) Users have friends
+(2) Posts have comments
+(3) Users share and like posts
+
+----------------------------------------------------------------------------------------------------
+
+SECTION 10 OTHER COMPUTE SERVICES: ECS , LAMBDA, BATCH, LIGHTSAIL
+
+
+(1) ECS
+
+--> ECS = Elastic Container Service
+
+--> Launch Docker containers on AWS
+
+--> But You must provision and maintain the infrastructure ( EC2 instances)
+
+
+
+(2) Fargate
+
+--> Launch Docker containers on AWS
+
+--> You do not provision the infrastructure (no EC2 instances to manage)
+
+--> Serverless offering
+
+--> Fargate is a container service
+
+
+
+(3) ECR
+
+--> Elastic Container Registry
+
+--> This is where you store your Docker images so they can be run by ECS or Fargate
+
+
+
+(4) WHAT's SERVERLESS ?
+
+--> Developers dont have to manage servers anymore
+
+--> They just deploy code, functions
+
+--> Serverless was pioneered by AWS Lambda but now includes anything that's
+managed "databases, messaging, storage"
+
+--> Serverless does not mean there are no servers
+
+SERVERLESS SERVICES ARE
+(A) Amazon S3
+(B) DynamoDB
+(C) Fargate
+
+
+
+(5) WHY AWS LAMBDA ? 
+
+--> AWS Lambda lets you run code without provisioning or managing servers
+
+--> AWS Lambda is a service that provides functions and cannot be reserved.
+
+--> AWS Lambda is a compute service
+
+--> AWS Lambda is an event-driven service. 
+
+IF WE USE AWS LAMBDA
+(A) Virtual functions
+(B) Limited by time - short executions
+(C) Run on demand
+(D) Scaling is automated
+
+
+(6) API GATEWAY 
+
+--> To get access to Lambda function we expose it to an API Gateway which provides client 
+REST Http API to connect to your website directly
+
+--> AWS Lambda and Amazon API Gateway are both app-facing components of the AWS Serverless infrastructure
+
+
+
+(7) LIGHTSAIL OVERVIEW
+
+Its a standalone service
+
+--> Great for people with little cloud experience
+
+--> The product set includes virtual private servers (instances), managed MySQL databases, block and object storage, simplified load balancers, and CDN distributions.
+
+--> Use for simple web applications, Dev/ Test environment
+
+
+(8) AWS Step Functions
+
+--> This is a serverless orchestration service.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Section 11
+
+(1) CloudFormation
+
+--> Infrastructure as code
+
+--> Create templates of services you want
+
+--> Creation and deletion of template at a specified scheduled time 
+    (eg: remove template from 5pm to 8am)
+
+--> CloudFormation is used for automating the deployment of infrastructure on AWS, not for automating operations.
+
+
+
+(2) CDK (AWS Cloud Development Kit)
+
+--> You can create you Cloud Infrastructure using familiar language
+
+--> Great for Lambda function and for Docker containers in ECS/EKS
+
+
+(3) Beanstalk
+
+--> AWS Elastic Beanstalk can be used to quickly deploy, manage and scale applications in the AWS Cloud
+
+--> Benstalk manages other services like Load Balancing, Auto Scaling, Capacity Provision
+
+--> Beanstalk also manages health of the application
+
+--> Elastic Beanstalk is a Platorm as a Service (PaaS)
+
+--> It is a compute Service
+
+--> AWS Elastic Beanstalk and AWS CloudFormation are both examples of automation. 
+
+
+(4) CodeDeploy
+
+--> Deploys application manually and upgrades its version automatically
+
+
+(4.1) Code Commit
+
+--> Provides a managed software version control system
+
+
+(4.2) AWS Software Development Kit
+
+--> A software development kit (SDK) is a collection of software development tools in one installable package. 
+
+--> Used for integrating the features of AWS services directly into an application.
+
+
+(5) CodePipeline
+
+--> Connects CodeBuild and CodeCommit
+
+
+(6) CodeArtifact Overview
+
+--> PLACE TO STORE CODE DEPENDENCIES
+
+
+(7) CodeStar Overview
+
+--> Manage software development activities in one place
+
+--> Can edit code "in the cloud" using AWS Cloud9
+
+
+(8) Cloud9
+
+--> AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets 
+you write, run, and debug your code with just a browser.
+
+
+(9) Systems Manager (SSM Overview)
+
+--> AWS Systems Manager gives you visibility and control of your infrastructure on AWS. 
+
+--> Systems Manager provides a unified user interface so you can view operational data from multiple AWS services 
+and allows you to automate operational tasks across your AWS resources.
+
+-->  Systems Manager is used for managing EC2 instances
+
+
+(10) OpsWorks
+
+--> In the exam : Chef or Puppet needed => AWS OpsWorks
+
+
+(11) AWS Config
+
+--> AWS Config is a fully-managed service that provides you with an AWS resource inventory, configuration history, 
+and configuration change notifications to enable security and regulatory compliance.
+
+------------------------------------------------------------------------------------------
+
+
+SECTION 12 LEVERAGING THE AWS GLOBAL INFRASTRUCTURE
+
+
+(1) CloudFront Overview
+
+--> CloudFront is a content delivery network (CDN)
+
+--> Delivers data, videos, applications, and APIs to customers globally with low latency, high transfer speeds
+
+--> We get DDos protetcion integration with Shield, AWS Web Application Firewall
+
+--> CloudFront uses Edge Location to cache content, and therefore bring more of your content 
+closer to your viewers to improve read performance.
+
+
+(2) AWS OUTPOSTS
+
+--> AWS Outposts is a fully managed service that offers the same AWS infrastructure, AWS services, APIs, and tools to virtually 
+any datacenter, co-location space, or on-premises facility for a truly consistent hybrid experience.
+
+
+(3) AWS WAVELENGTH
+
+In exam if mentioned 5G it will be Wavelength
+
+
+(4) AWS LOCAL ZONES 
+
+--> You should use AWS Local Zones to deploy workloads closer to your end-users for low-latency requirements
+
+
+(5) Site to Site VPN
+
+--> Connect an on-premises VPN to AWS
+
+--> The connection is automatically encrypted
+
+
+(6) Direct Connect (DX)
+
+--> Establish physical connection between on-premises and AWS
+
+--> The connection is private, secure and fast
+
+
+---------------------------------------------------------------------------------------------
+
+SECTION 13 CLOUD INTEGRATIONS
+
+
+(A) Synchronous communications: application to application
+
+(B) Asynchronous/ Event based : application to queue to application
+
+
+--> Synchronous between applications can be problematic if there are sudden
+spiked of traffic
+
+--> What if you need to suddenly encode 1000 videos but its usually 10 ?
+
+--> In that case we can use "SQS: queue model", 
+or "SNS: pub/sub model"
+
+
+
+(1) Amazon SQS- Simple Queue Service
+
+--> IF YOU SEE "DECOUPLE" THINK OF SQS
+
+--> Messages deleted after read by consumer
+
+--> Low latency
+
+
+(2) SNS OVERVIEW (Simple Notification Service)
+
+--> Buying Service will send message to SNS topic and the topic will be smart enough
+to send notification via email to the fraud, shipping and SQS queue service
+
+--> Amazon Simple Notification Service (SNS) is a highly available, durable, secure, fully managed pub/sub messaging service
+
+
+(3) Kinesis overview
+
+--> For exam: Kinesis = real-time big data streaming
+
+
+(4) AMAZON MQ Overview
+
+--> When migrating to the cloud instead of re-engineering the application
+to use SQS and SNS, WE CAN USE AMAZON MQ
+
+--> AMAZON MQ = managed Apache Active MQ
+
+
+---------------------------------------------------------------------------------------------
+
+SECTION 14 CLOUD MONITORING
+
+(0) CloudWatch
+
+--> Amazon CloudWatch is a performance monitoring service. AWS services send metrics about their utilization to CloudWatch which collects the metrics
+
+--> CloudWatch provides data and actionable insights to monitor applications, respond to system-wide performance changes, 
+optimize resource utilization, and get a unified view of operational health
+
+--> You use CloudWatch for performance monitoring, not automating operational tasks.
+
+
+(1) CloudWatch Metrics
+
+--> CloudWatch providess metrics for every services in AWS
+
+
+Important Metrics
+
+--> EC2 instance: CPU Utilization, Status Check
+
+--> EBS volumes: Disk Read/ Writes
+
+--> S3 buckets: BucketSizeBytes
+
+--> Biling, Service limit
+
+
+(2) CloudWatch Alarms
+
+--> Alarm used to trigger notifications for any metric
+
+--> Alarm actions 
+    (1) Auto Scaling : increase or decrease EC2 instances desired count
+    (2) EC2 Actions: stop, terminate, reboot
+
+
+
+(3) CloudWatch Logs Overview
+
+--> You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, 
+AWS CloudTrail, Route 53, and other sources such as on-premises servers.
+
+--> CloudWatch Logs enables you to centralize the logs from all of your systems, applications, 
+
+
+(4) EventBridge Overview (Formerly CloudWatch Events)
+
+--> React to events hapening within your AWS account 
+
+
+USE CASE FOR EventBridge
+
+--> Schedule: Cron jobs (scheduled scripts) on regular basis
+
+--> Trigger Lambda functions, send SQS/SNS messages
+
+
+(5) CLOUDTRAIL 
+
+--> Provides governance, compliance and audit for your AWS Account
+
+--> With CloudTrail, you can log, continuously monitor, and retain account activity related to actions across your AWS infrastructure.
+
+
+(6) THREE EVENTS IN CloudTrail
+
+(A) Management Events
+
+--> Operations that are performed on resources in your AWS account
+
+--> EXAMPLES
+    (1) Configuring security (IAM Attach Role Policy)
+    (2) Configuring rules for routing data (Amazon EC2 CreateSubnet)
+    (3) Setting up logging (AWS CloudTrails CreateTrail)
+
+
+(B) Data Events
+
+--> By default events are not logged (because high value operations)
+
+--> Seperate Read and Write Events
+
+--> AWS Lambda function execution activity (the Invoke API)
+
+
+(C) CloudTrail Insights Events
+
+--> Enable CloudTrail Insights to detect unusual activity in your account
+    (1) Inaccurate resource provisioning
+
+
+
+(7) CloudTrail Events Retention
+
+--> Events are stored for 90 days in CloudTrail
+
+
+(8) CodeGuru Overview
+
+--> An ML powered service for automated code reviews and application 
+performance recommendations
+
+
+--> Provides two functionalities
+    --> CodeGuru Reviewer: automated code reviews for static code analysis
+
+    --> CodeGuru Profiler: recommendations about application performance during
+        runtime(production)
+
+
+(9) Service Health Dashboard
+
+--> Shows all regions, all services health
+
+--> Has an RSS feed you can subscribe to receive notifications about
+statuses
+
+--> Doesnt provide alert
+
+
+(10) PERSONAL HEALTH DASHBOARD
+
+--> AWS Personal Health Dashboard provides alerts and remediation guidance when AWS is experiencing events that may impact you. 
+
+--> With Personal Health Dashboard, alerts are triggered by changes in the health of your AWS resources, giving you event visibility, 
+and guidance to help quickly diagnose and resolve issues.
+
+
+(11) X-RAY
+
+--> AWS X-Ray helps developers analyze and debug production, distributed applications, 
+such as those built using a microservices architecture.
+
+
+-------------------------------------------------------------------------------------------------
+
+SECTION 15 VPC (Virtual Private Cloud) AND NETWORKING
+
+
+--> An Amazon Virtual Private Cloud (VPC) can include multiple Availability Zones
+
+--> Amazon Virtual Private Cloud (Amazon VPC) enables you to launch AWS resources into a virtual network that you've defined. 
+
+
+(1) Subnet 
+
+--> Subnets allows to partition your ntw inside your VPC (Availability Zone resource)
+
+
+(2) Route Tables
+
+--> To define access to the internet and btw subnets we use Route Tables
+
+
+(3) NACL (Network Access Control)
+
+--> Operates at the subnet level
+
+--> Support allow rules and deny rules
+
+--> Is stateless: Return traffic must be explicitly
+allowed by rules
+
+--> Network ACLs only filter traffic entering and leaving a VPC subnet.
+
+--> You do not attach a Network ACL to an instance, you attach it to a subnet.
+
+
+(4) Security Groups
+
+--> Operates at instance level
+
+--> Supports allow rules only
+
+--> Is stateful: Return traffic is automatically allowed, regardles of any rules
+
+
+(5) VPC Flow Logs
+
+--> Capture info about IP traffic going into your interfaces
+
+--> Captures ntw info from AWS managed interfaces: ELB, ElaticCache
+
+
+(6) VPC PEERING
+
+--> Connect 2 VPC privately using AWS network
+
+--> Make them behave as if they were in same ntw
+
+
+(7) VPC Endpoints - Interface & Gateway (S3 & DynamoDB)
+
+--> Endpoints allow you to connect to AWS Services using a private ntw instead
+of the public www ntw
+
+--> VPC Endpoint Gateway: S3 & DynamoDB
+
+--> VPC Endpoint Interface: CloudWatch 
+
+
+(8) PrivateLink (VPC Endpoint Services)
+
+--> Expose a service to 1000 of VPC
+
+
+(9) Transit Gateway
+
+--> CONNECT HUNDREDS OF THOUSANDS OF VPC TOGETHER ALONG WITH YOUR ON PREMISE INFRASTRUCTURE
+
+--> AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-premises networks through a central hub
+
+
+----------------------------------------------------------------------------------------------
+
+SECTION 16 SECURITY AND COMPLIANCE
+
+
+(1) Web ACL (Web Access Control List)
+    (1) Rules can include IP addresses, HTTP headers/body
+    (2) Protects from SQL injection
+    (3) Block certain contries, ensure requests are not too big
+    (4) Rate based rules (eg: user cannot do more than 5 requests per second)
+
+
+(2) Penetration Testing
+
+Prohibited Activities are as follows
+
+--> DNS zone walking via Amazon Route 53 Hosted Zones
+
+--> Denial of service (Dos), Distributed Denial of Service (DDoS)
+
+--> Port/Protocol/Request flooding
+
+
+(3) AWS KMS (Key Management Service)
+
+--> Anytime you hear "encryption" its most likely KMS
+
+--> AWS Key Management Service (KMS) makes it easy for you to create and manage cryptographic keys and control their use across a wide range of AWS services and in your applications
+
+--> Encryption automatically enabled are CloudTrail Logs, S3 Glacier
+and Storage Gateway
+
+
+(4) Cloud HSM
+
+--> AWS CloudHSM is a cloud-based Hardware Security Module (HSM) that enables you to easily generate and use your encryption keys on the AWS Cloud.
+
+--> HSM => Dedicated Hardware Security Module
+
+
+(5) AWS CERTIFICATE MANAGER (ACM) OVERVIEW
+
+--> Lets you manage and deploy SSL/ TSL Certificates
+
+--> Certificates used for in-flight encryption for Websites
+
+--> Certificates are not used by users for authenticating to AWS services.
+
+
+(6) AWS SECRETS MANAGER
+
+--> Newer service meant for storing secrets
+
+--> Capacility to force rotation of secrets every X days
+
+--> MOSTLY MEANT FOR RDS INTEGRATION
+
+
+(7) GuardDuty 
+
+--> Intelligent Threat discovery to proetct AWS Account
+
+--> Use Machine learning algorithms
+
+--> Can protect against cryptoCurrency attacks. 
+
+
+(8) Inspector Overview
+
+--> Allows us to do Automated Security Asessments
+
+--> Amazon Inspector automatically assesses applications for exposure, vulnerabilities, and deviations from best practices. 
+
+--> Amazon Inspector cannot be used to prevent Distributed Denial-of-Service (DDoS) attack
+
+--> Helps improve the security and compliance of applications deployed on AWS
+
+--> It doesn’t detect threat.
+
+
+(9) MACIE OVERVIEW
+
+--> Uses Machine learning and pattern matching to discover and protect
+your sensitive data in AWS
+
+
+(10) AMAZON DETECTIVE OVERVIEW
+
+--> Sometimes security findings require deeper analysis to isolate the root cause
+
+--> Amazon Detective analyzes, investigates and identifies the root cause
+
+
+--------------------------------------------------------------------------------------------
+
+SECTION 17 MACHINE LEARNING
+
+
+(1) COMPREHEND OVERVIEW
+
+--> Anytime you see Natural Language Processing (NLP) in exam think of Amazon Comprehend
+
+
+(2) KENDRA OVERVIEW
+
+--> Used for extracting answers from within document
+
+
+(3) Personalize Overview
+
+--> Personalized product recommendations
+
+
+(4) Sage Maker
+
+--> Amazon SageMaker is a fully managed service that provides every developer and data scientist with the ability to build, train, and deploy 
+machine learning (ML) models quickly. 
+
+--> SageMaker removes the heavy lifting from each step of the machine learning process to make it easier to develop high-quality models.
+
+
+--------------------------------------------------------------------------------------------------
+
+SECTION 18 Account Management , Billing and Support
+
+
+(0) AWS Organisation
+
+--> Helps you to centrally manage billing; control access, compliance, and security; and share resources across your AWS accounts.
+
+--> Using AWS Organizations, you can automate account creation, create groups of accounts, set up a single payment method for all of your AWS accounts
+
+--> Free Service
+
+--> AWS Organizations allows you to restrict account privileges
+
+
+(1) Service Control Policies (SCP)
+
+--> SCPs are used in AWS Organizations to restrict available permissions. They do not grant permissions.
+
+
+(2) Organisation Consolidated Biling
+
+--> AWS Consolidated Billing is a feature of AWS Organizations that allows you to consolidate billing across multiple 
+linked accounts and benefit from volume pricing discounts.
+
+
+(3) AWS Control Tower
+
+--> AWS Control Tower provides the easiest way to set up and govern a secure, multi-account AWS environment, called a landing zone.
+
+
+(4) Compute Optimizer 
+
+--> Reduce costs and improve performance by recommending optimal AWS resources
+
+--> Uses Machine Learning to analyze your resource config and their utilization
+CloudWatch metrics
+
+
+(5) Billing and Costing Tools Overview
+
+
+YOU HAVE TO KNOW THEM ALL FOR EXAM
+
+(A) Estimate costs in cloud
+
+--> For this we have: Pricing Calculator
+
+
+(B) Tracking costs in the cloud
+
+--> For this we have : Billing Dashboard, Cost and Usage Reports, Cost Explorer, Cost Allocation tag
+
+
+(C) Monitoring against cost plans
+
+--> For this we have : Billing Alarms, Budgets
+
+
+(6) AWS TRUSTED ADVISOR
+
+--> AWS Trusted Advisor is an online tool that provides real-time guidance to help provision your resources following AWS best practices.  
+
+--> AWS Trusted Advisor can check Amazon Elastic Block Store (Amazon EBS) volume configurations and warns when volumes appear to be underused.
+
+--> Also checks for underutilized Amazon EC2 instances to reduce costs.
+
+--> AWS Trusted Advisor provides best practice recommendations in five categories: 
+Cost Optimization, Performance, Security, Fault Tolerance, Service Limits.
+
+--> AWS Trusted Advisor scans the security groups in your account to see if any security groups allow unrestricted access to any ports.
+
+
+(7) Support Plans
+
+--> All support plans provide 24×7 access to customer service, documentation, whitepapers, and support forums.
+
+(A) AWS Basic Support Plan
+
+--> AWS Trusted Advisor : Access to the 7 core Trusted Advisor checks
+
+
+(B) AWS Developer Support Plan
+
+--> All services in Basic Support Plan
+
+--> Unlimited cases/ 1 Primary Contact
+
+--> You get support from Cloud Support Associates, not Engineers and also do not get access to architectural and operational reviews.
+
+
+(C) AWS Business Support Plan 
+
+--> For production workloads only
+
+--> Trusted Advisor - Full set of checks + API access
+
+--> Unlimited cases/ unlimited contacts
+
+--> Does not provide access to architectural and operational reviews.
+
+
+(D) AWS Enterprise On-Ramp Support Plan 
+
+--> For Production or Business critical worloads
+
+--> All of Business Support Plans
+
+--> Access to many Technical Account Managers (TAM)
+
+--> Concierge Support Team (IMPORTANT)
+
+
+(E) AWS Enterprise Support Plan
+
+--> For mission critical workloads
+
+--> All of Business Support Plan
+
+--> Designated Technical Account Manager
+
+--> Concierge Support Team (IMPORTANT)
+
+
+(8) Cost Explorer
+
+--> AWS Cost Explorer is a way to visualize your current spend across your accounts, and to forecast future spend.
+
+-->  Cost Explorer can be used to view itemized costs but you cannot check resource utilization.
+
+--> Cost Explorer is used for viewing costs and will not assist with service limits.
+
+
+(9) AWS Cost and Usage Reports 
+
+--> The AWS Cost and Usage Reports (AWS CUR) contains the most comprehensive set of cost and usage data available. 
+You can use Cost and Usage Reports to publish your AWS billing reports to an Amazon Simple Storage Service (Amazon S3) bucket that you own. 
+
+
+(10) Amazon CloudWatch 
+
+--> Amazon CloudWatch can be used to create alarm to monitor your estimated charges. When you enable the monitoring of estimated charges for your AWS account, 
+the estimated charges are calculated and sent several times daily to CloudWatch as metric data. You can choose to receive alerts by email when charges have 
+exceeded a certain threshold. Think resource performance monitoring, events, and alerts; think CloudWatch. 
+
+--> CloudWatch cannot be used to identify under-utilized EC2 instances without manually configuring an alarm with the appropriate threshold to 
+track the EC2 utilization
+
+
+(11) AWS Budgets
+
+--> AWS Budgets gives the ability to set custom budgets that alert you when your costs or usage exceed (or are forecasted to exceed) your budgeted amount. 
+
+--> You can also use AWS Budgets to set reservation utilization or coverage targets and receive alerts when your utilization drops below the threshold you define
+
+--> Automatically terminate AWS resources if budget thresholds are exceeded.
+
+
+(12) AWS Pricing Calculator
+
+--> AWS Pricing Calculator lets you explore AWS services and create an estimate for the cost of your use cases on AWS. 
+
+----------------------------------------------------------------------------------------
+
+SECTION 19 ADVANCED IDENTITY
+
+
+(1) Security Token Service (STS) Ovevriew
+
+--> Create temporary priviledge credentials to access AWS resources
+
+--> Use Cases (Important)
+    --> IAM Roles for Amazon ECS:provide temporary credentials for EC2 instances to access AWS resources
+
+
+(2) Cognito 
+
+--> Provide identity for Web and mobile Applications users (Potentially millions)
+
+--> Instead of creating them an IAM user, you create a user in Cognito
+
+
+(3) DIRECTORY SERVICES 
+
+--> Directory services is used whenever you hear about Active Directory or
+Microsoft Active directory
+
+
+(4) SINGLE SIGNIN-ON (SSO) OVERVIEW
+
+--> Use one login to access multiple accounts or 3rd party business
+applications
+
+
+---------------------------------------------------------------------------------------------------
+
+SECTION 20 OTHER SERVICES
+
+
+(1) Workspaces 
+
+--> Eliminate management of on-premise VDI (Virtual Desktop Infrastructure)
+
+--> Provide thousands of desktops to workers across the globe.
+
+
+(2) Appstream 2.0 Overview
+
+--> Provides users instant access to their desktop applications from anywhere
+
+
+(3) SUMERIAN OVERVIEW
+
+--> Create and run virtual reality (VR), augumented reality (AR) 
+and 3D applications
+
+--> Can be used to quickly create 3D models with animations
+
+--> No programming, 3D experience required
+
+
+(4) IoT Core Overview
+
+--> Allows to connect Iot devices to AWS Cloud
+
+--> Your application can communicate with your devices even when they are not
+connected
+
+
+(5) APPSYNC
+
+--> In exam if you see GraphQL think of Appsync
+
+
+(6) AMPLIFY
+
+--> Develop and deploy scalable full stack web and mobile applications
+
+
+(7) Device Farm Overview
+
+--> Tests your web and mobile apps against desktop browsers, real mobile devices
+
+
+(8) Disaster Recovery Stratergies
+
+EXAM WILL ASK YOU WHICH IS THE CHEAPEST Disaster Recovery Stratergies
+
+--> Answer is Backup and Restore 
+
+(1) Backup and Restore is cheapest
+
+(2) Pilot Light is more expensive than Backup and Restore
+
+(3) Warm Standby: cost is higher
+
+(4) Multi-Site/ Hot-Site: most expensive
+
+
+
+------------------------------------------------------------------------------------------------------
+
+SECTION 21 AWS Architecting & Ecosystem
+
+
+(1) 6 pillars Well Architected Framework ARE
+
+(A) Operational Excellence
+
+--> Infrastructure as code
+
+--> Make frequent small reversible changes
+
+--> Anticipate and learn from failures
+
+(B) Security
+
+--> Apply security at all layers: Like edge network
+
+--> Protect data in transit and at rest
+
+(C) Reliability
+
+-->  Ability to recover from infrastructure or service disruptions
+
+--> Use automation to simulate different failures 
+
+(D) Performance Efficiency
+
+--> Use advanced technologies 
+
+--> Go global in minutes
+
+(E) Cost Optimization
+
+--> Pay only for what to use
+
+--> Use CloudWatch to measure efficiency
+
+
+(F) Sustainibility
+
+--> Establish performance indicators
+
+--> Set long-term goals for each workload
+
+
+(2) AWS Well Architected Tool
+
+--> Free tool to review your architecture against 6 pillars of Well - Architected Framework and adopt architectural best practises
+
+
+(3) AWS Right Sizing
+
+--> EC2 has many instance types, but choosing the most powerful one isnt the best choice becuz cloud is elastic
+
+--> Right sizing is process of matching instance types and sizes to your workload performance and capacity performance at the lowest possible cost
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Practise Test Incorrect answers
+
+
+(1) Which of the following are correct statements regarding the AWS Shared Responsibility Model?
+
+--> AWS is responsible for Security "of" the Cloud 
+
+--> "For abstracted services like Amazon S3, AWS operates the infrastructure layer, the operating system, and platforms
+
+
+(2) Which of the following AWS services are part of the AWS Foundation services for the Reliability pillar of the Well-Architected Framework in AWS Cloud?
+
+--> The services that are part of foundations are: Amazon VPC, AWS Trusted Advisor, AWS Service Quotas (formerly called AWS Service Limits).
+
+
+(3) Data encryption is automatically enabled for which of the following AWS services?
+
+--> Amazon S3 Glacier 
+
+--> AWS Storage Gateway
+
+
+(4) AWS Whitepapers 
+
+--> AWS Whitepapers are technical content authored by AWS and the AWS community to expand your knowledge of the cloud. 
+They include technical whitepapers, technical guides, reference material
+
+
+(5) AWS Quick Starts 
+
+--> Quick Starts are built by AWS solutions architects and partners to help you deploy popular technologies on AWS, based on AWS best practices for 
+security and high availability. 
+
+--> These accelerators reduce hundreds of manual procedures into just a few steps, so you can build your production environment quickly and start using it immediately.
+
+--> Each Quick Start includes AWS CloudFormation templates 
+
+
+(6) AWS Marketplace facilitates which of the following use-cases?
+
+--> Sell Software as a Service (SaaS) solutions to AWS customers
+
+--> AWS customer can buy software that has been bundled into customized AMIs by the AWS Marketplace sellers
+
+
+(7) Which of the following options are the benefits of using AWS Elastic Load Balancing?
+
+--> High availability
+
+--> Fault tolerance
+
+
+(8) Which AWS Support plans provides access to online training with self-paced labs?
+
+--> Enterprise
+
+--> AWS Enterprise Support provides customers with concierge-like service where the main focus is on 
+helping the customer achieve their outcomes and find success in the cloud.
+
+
+(9) Which policy describes prohibited uses of the web services offered by Amazon Web Services?
+
+--> AWS Acceptable Use Policy
+
+
+(10) AWS Connect
+
+--> Amazon Connect provides a seamless omnichannel experience through a single unified contact center for voice, chat, and task management.
+
+
+(11) Which of the following statements best describes the concept of agility in relation to cloud computing on AWS?
+
+--> "The ability to experiment quickly" 
+
+--> "The speed at which AWS resources can be created" 
+
+
+(12) Loose Coupling
+
+--> Loose coupling is when you break systems down into smaller components that are loosely coupled together. 
+
+--> This reduces interdependencies between systems components and improve the operation of workloads
+
+
+--> Removing single points of failure ensures fault tolerance and high availability.
+
+
+
+(13) Ways to launch AWS Resources
+
+--> There are several ways to launch resources in AWS. You can use the AWS Management Console or Command Line Interface (CLI) 
+or you can automate the process by using tools such as AWS CloudFormation.
+
+--> With AWS CloudFormation you can deploy infrastructure such as Amazon ElastiCache clusters by defining your 
+desired configuration state in code using a template file written in JSON or YAML
+
+
+(14) When running applications in the AWS Cloud, which common tasks can AWS manage on behalf of their customers? 
+
+--> "Patching database software" 
+
+--> "Taking a backup of a database" 
+
+
+(15) Elasti Cache
+
+--> Amazon ElastiCache is a blazing fast in-memory data store that provides sub-millisecond latency to power internet-scale real-time applications
+
+
+(16) How does the AWS global infrastructure offer high availability and fault tolerance to customers?
+
+--> The AWS infrastructure consists of isolated AWS Regions with independent Availability Zones that are connected with low-latency networking and redundant power supplies
+
+
+(19) AWS OpsWorks
+
+--> AWS OpsWorks is a configuration management service that provides managed instances of Chef and Puppet. 
+
+--> OpsWorks lets you use Chef and Puppet to automate how servers are configured
+
+
+(20) Internet Gateway
+
+--> An Internet gateway is attached to a VPC and allows inbound traffic from the internet to access the VPC.
+
+--> Performs network address translation (NAT) for instances that have been assigned public IPv4 addresses.
+
+
+(21) NAT Gateway
+
+--> A NAT gateway is used for outbound internet access for instances running in a private subnet.
+
+
+(22) VPC Route Table
+
+--> The route table is used within a VPC for directing traffic.
+
+
+(21) Virtual Private Gateway (VGW)
+
+--> A VGW is used for IPSec VPN connections to access a VPC.
+
+
+(22) To gain greater discounts, which services can be reserved?
+
+--> Amazon DynamoDB
+
+--> Amazon RedShift
+
+--> ElastiCache
+
+
+
+(23) Amazon OpenSearch Service (Amazon Elasticsearch Service)
+
+--> Amazon Elasticsearch Service is involved with operational analytics such as application monitoring, log analytics
+
+
+(24) AWS IAM Access Analyzer
+
+--> Access Analyzer helps you identify the resources in your organization and accounts, such as Amazon S3 buckets or IAM roles, shared with an external entity. 
+
+--> This lets you identify unintended access to your resources and data, which is a security risk.
+
+
+(25) On Demand Capacity Reservation with Savings Plan
+
+--> On-Demand Capacity Reservation with Savings Plan is ideal when application has predictable running times
+
+--> It is also mission critical, so reserving the capacity within an Availability Zone using On-Demand Capacity Reservation with Savings Plan makes perfect sense. 
+
+--> The savings plans will also make this application cost-effective whilst still maintaining the guaranteed availability that you cannot get with spot instances.
+
+
+(26) Which AWS services are associated with Edge Locations?
+
+--> AWS CloudFront
+
+--> AWS Shield
+
+
+(27) What does an organization need to do to move to another AWS region?
+
+--> You don’t need to do anything except start deploying resources in the new region. With the AWS cloud you can use any region around the world at any time. 
+--> There is no need for a separate account, and IAM is a global service.
+
+
+(28) File Gateway
+
+--> Store and retrieve files as objects in Amazon S3.
+
+
+(29) Volume Gateway
+
+--> Support block-based volumes
+
+
+(30) Which type of AWS Storage Gateway can be used to backup data with popular backup software
+
+--> Gateway Virtual Tape Library
+
+
+(31) AWS Service Catalog
+
+--> AWS Service Catalog is used to create and manage catalogs of IT services that you have approved for use on AWS, 
+including virtual machine images, servers, software, and databases to complete multi-tier application architectures.
+
+
+(32) Which of the following need to be included in a total cost of ownership (TCO) analysis?
+
+--> To perform a TCO you need to document all of the costs you’re incurring today to run your IT operations.
+
+--> That includes facilities equipment installation and data center security costs. That way you get to compare 
+the full cost of running your IT on-premises today, to running it in the cloud.
+
+
+(33) How can consolidated billing within AWS Organizations help lower overall monthly expenses?
+
+--> By pooling usage across multiple accounts to achieve a pricing tier discount
+
+
+(34) Application Discovery Service
+
+--> AWS Application Discovery Service helps you plan your migration to the AWS cloud by collecting usage and configuration data about your on-premises servers.
+
+
+(35) What charges are applicable to Amazon S3 Standard storage class? (Select TWO.)
+
+--> With the standard storage class you pay a per GB/month storage fee, and data transfer out of S3. Standard-IA and One Zone-IA have a minimum capacity charge per object. 
+
+--> Standard-IA, One Zone-IA, and Glacier also have a retrieval fee. You don’t pay for data into S3 under any storage class.
+
+
+(36) Assuming you have configured them correctly, which AWS services can scale automatically without intervention?
+
+--> Both S3 and DynamoDB automatically scale as demand dictates.  
+
+--> EBS and RDS do not scale automatically. You must intervene to adjust volume sizes and database instance types to scale these resources
+
+
+(37) Which type of storage stores objects comprised of key, value pairs?
+
+--> S3
+
+
+(38) AWS Artifact (not really a service)
+
+--> Portal that provides customers with on demand access to AWS compliance
+documentation and AWS aggrements
+
+(A) Artifact Reports --> Allows you to download AWS security 
+and compliance documents from third party Auditors
+
+(B) Artifact Agreements - Allows you to review, accept and track the status
+of AWS aggreementS
+
+
+(39) Amazon Simple Workflow Service (SWF)
+
+--> If you hear "Workflow" think SWF
+
+
+(40) Which HTTP code indicates a successful upload of an object to Amazon S3?
+
+--> 200 
+
+HTTP response status codes indicate whether a specific HTTP request has been successfully completed.
+
+- A HTTP 200 codes indicates a successful upload.
+
+- A HTTP 300 code indicates a redirection.
+
+- A HTTP 400 code indicates a client error.
+
+- A HTTP 500 code indicates a server error.
